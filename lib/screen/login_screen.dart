@@ -37,6 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: kTextFieldDecaration.copyWith(
                 hintText: 'Enter your email'
               ),
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 8.0,
@@ -48,6 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: kTextFieldDecaration.copyWith(
                 hintText: 'Enter your password'
               ),
+              obscureText: true,
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 24.0,
