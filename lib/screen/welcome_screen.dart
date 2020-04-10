@@ -9,11 +9,12 @@ class WelcomeScreen extends StatefulWidget {
   static final String id = 'welcome_screen';
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -25,9 +26,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Hero(
                   tag: 'log',
                   child: Container(
-                    child: Image.asset('images/logo.png'),
-                    height: 60.0,
-                  ),
+                      child: Image.asset('images/logo.png'), height: 60.0),
                 ),
                 Text(
                   'Flash Chat',
@@ -81,5 +80,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       ),
     );
+  }
+
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+
+    animation =
+        ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {});
+      print(animation.value);
+    });
+  }
+
+  Animation animation;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
