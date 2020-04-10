@@ -1,5 +1,7 @@
 import 'package:chatfirebasesampel/components/rounded_button.dart';
 import 'package:chatfirebasesampel/constants.dart';
+import 'package:chatfirebasesampel/screen/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,11 +34,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextField(
               onChanged: (value) {
-                //Do something with the user input.
+                email = value;
               },
-              decoration: kTextFieldDecaration.copyWith(
-                hintText: 'Enter your email'
-              ),
+              decoration:
+                  kTextFieldDecaration.copyWith(hintText: 'Enter your email'),
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
             ),
@@ -45,11 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextField(
               onChanged: (value) {
-                //Do something with the user input.
+                password = value;
               },
               decoration: kTextFieldDecaration.copyWith(
-                hintText: 'Enter your password'
-              ),
+                  hintText: 'Enter your password'),
               obscureText: true,
               textAlign: TextAlign.center,
             ),
@@ -59,11 +59,25 @@ class _LoginScreenState extends State<LoginScreen> {
             RoundedButton(
               color: Colors.lightBlueAccent,
               title: 'Log In',
-              onPress: (){},
+              onPress: () async {
+                try {
+                  final user = await _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  if (user != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  print(e);
+                }
+              },
             ),
           ],
         ),
       ),
     );
   }
+
+  final _auth = FirebaseAuth.instance;
+  String email;
+  String password;
 }

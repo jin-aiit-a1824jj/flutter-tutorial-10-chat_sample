@@ -19,7 +19,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -65,13 +66,13 @@ class _ChatScreenState extends State<ChatScreen> {
   FirebaseUser loggedInUser;
 
   void getCurrentUser() async {
-    try{
+    try {
       final user = await _auth.currentUser();
-      if(user != null){
+      if (user != null) {
         loggedInUser = user;
         print(loggedInUser.email);
       }
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -81,6 +82,4 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     getCurrentUser();
   }
-
-
 }

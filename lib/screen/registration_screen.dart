@@ -49,11 +49,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               obscureText: true,
               textAlign: TextAlign.center,
               onChanged: (value) {
-               password = value;
+                password = value;
               },
               decoration: kTextFieldDecaration.copyWith(
-                hintText: 'Enter your password'
-              ),
+                  hintText: 'Enter your password'),
             ),
             SizedBox(
               height: 24.0,
@@ -64,16 +63,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               onPress: () async {
                 print(email);
                 print(password);
-                try{
-                  final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                  if (newUser != null){
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newUser != null) {
                     Navigator.pushNamed(context, ChatScreen.id);
                   }
-                }catch(e){
+                } catch (e) {
                   print(e);
                 }
-
-
               },
             ),
           ],
