@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chatfirebasesampel/screen/login_screen.dart';
 import 'package:chatfirebasesampel/screen/registration_screen.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   child: Container(
                       child: Image.asset('images/logo.png'), height: 60.0),
                 ),
-                Text(
-                  'Flash Chat',
-                  style: TextStyle(
+                TypewriterAnimatedTextKit(
+                  text: ['Flash Chat'],
+                  textStyle: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
