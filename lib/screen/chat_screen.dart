@@ -20,8 +20,9 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                _auth.signOut();
-                Navigator.pop(context);
+                messagesStream();
+//                _auth.signOut();
+//                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -47,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      _firestore.collection('messages').add({
+                      _fireStore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
                       });
@@ -88,5 +89,21 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   String messageText;
-  final _firestore = Firestore.instance;
+  final _fireStore = Firestore.instance;
+
+  void getMessages () async {
+   final messages =  await _fireStore.collection('messages').getDocuments();
+   for(var message in messages.documents){
+     print(message.data);
+   }
+  }
+
+  void messagesStream() async {
+    await for( var snapshot in _fireStore.collection('messages').snapshots()){
+      for( var message in  snapshot.documents){
+        print(message.data);
+      }
+    }
+  }
+
 }
